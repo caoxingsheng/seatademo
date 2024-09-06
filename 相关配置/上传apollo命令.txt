@@ -1,0 +1,1 @@
+sh apollo-config.sh -h localhost -p 8070 -e DEV -a seata-server -c default -n application -d apollo -r apollo -t 99e2a0bb71e2ccd57c54681b5518f13e9b97ed3bf3155174466fc7bde5c6adeb

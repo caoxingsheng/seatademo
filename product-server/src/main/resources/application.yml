@@ -1,0 +1,50 @@
+server:
+  port: 8523
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: product-server
+eureka:
+  client:
+    register-with-eureka: true  #是否注册到eureka上
+    fetch-registry: true  #是否从注册中心获取信息
+    service-url:
+      defaultZone: http://localhost:10086/eureka/
+
+app:
+  id: ${spring.application.name}
+apollo:
+  meta: http://localhost:8080
+  config-service: http://localhost:8080
+  cache-dir: c:/opt/data
+  bootstrap:
+    enabled: true
+    namespaces: application
+  cluster: default
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: default_tx_group
+  config:
+    type: apollo
+#    type: file
+    apollo:
+      apollo-meta: http://localhost:8080
+      apollo-config-service: http://localhost:8080
+      app-id: seata-server
+      namespace: application
+      apollo-accesskey-secret:
+      cluster: default
+    file:
+      name: file.conf
+  registry:
+    type: eureka
+    eureka:
+      weight: 1
+      application: default
+      service-url: http://localhost:10086/eureka/
+  service:
+    vgroup-mapping:
+      default_tx_group: default

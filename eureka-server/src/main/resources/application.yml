@@ -1,0 +1,40 @@
+server:
+  port: 10086
+spring:
+  application:
+    name: euraka-server
+  boot:
+    admin:
+      client:
+        enabled: false
+        url: http://127.0.0.1:7000
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: false
+  sleuth:
+    sampler:
+      probability: 1.0
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://127.0.0.1:${server.port}/eureka
+  server:
+    enable-self-preservation: false # 关闭自我保护
+    eviction-interval-timer-in-ms: 5000 # 每隔5秒进行一次服务列表清理
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+arthas:
+  agent-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${random.uuid}
+  tunnel-server: ws://localhost:8555/ws
+  telnet-port: -1
+  http-port: -1
